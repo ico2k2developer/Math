@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="CMakeSharedSettings">
+    <configurations>
+      <configuration PROFILE_NAME="Debug x64" ENABLED="true" CONFIG_NAME="Debug" TOOLCHAIN_NAME="Visual Studio amd64" />
+      <configuration PROFILE_NAME="Release x64" ENABLED="true" CONFIG_NAME="Release" TOOLCHAIN_NAME="Visual Studio amd64" />
+      <configuration PROFILE_NAME="RelWithDebInfo x64" ENABLED="true" CONFIG_NAME="RelWithDebInfo" TOOLCHAIN_NAME="Visual Studio amd64" />
+      <configuration PROFILE_NAME="MinSizeRel x64" ENABLED="true" CONFIG_NAME="MinSizeRel" TOOLCHAIN_NAME="Visual Studio amd64" />
+      <configuration PROFILE_NAME="Debug x86" ENABLED="true" CONFIG_NAME="Debug" TOOLCHAIN_NAME="Visual Studio x86" />
+      <configuration PROFILE_NAME="Release x86" ENABLED="true" CONFIG_NAME="Release" TOOLCHAIN_NAME="Visual Studio x86" />
+      <configuration PROFILE_NAME="RelWithDebInfo x86" ENABLED="true" CONFIG_NAME="RelWithDebInfo" TOOLCHAIN_NAME="Visual Studio x86" />
+      <configuration PROFILE_NAME="MinSizeRel x86" ENABLED="true" CONFIG_NAME="MinSizeRel" TOOLCHAIN_NAME="Visual Studio x86" />
+      <configuration PROFILE_NAME="Debug XP" ENABLED="true" CONFIG_NAME="Debug" TOOLCHAIN_NAME="Visual Studio x86" GENERATION_OPTIONS="-A Win32 -T v141_xp" NO_GENERATOR="true" />
+      <configuration PROFILE_NAME="Release XP" ENABLED="true" CONFIG_NAME="Release" TOOLCHAIN_NAME="Visual Studio x86" GENERATION_OPTIONS="-A Win32 -T v141_xp" NO_GENERATOR="true" />
+      <configuration PROFILE_NAME="RelWithDebInfo XP" ENABLED="true" CONFIG_NAME="RelWithDebInfo" TOOLCHAIN_NAME="Visual Studio x86" GENERATION_OPTIONS="-A Win32 -T v141_xp" NO_GENERATOR="true" />
+      <configuration PROFILE_NAME="MinSizeRel XP" ENABLED="true" CONFIG_NAME="MinSizeRel" TOOLCHAIN_NAME="Visual Studio x86" GENERATION_OPTIONS="-A Win32 -T v141_xp" NO_GENERATOR="true" />
+    </configurations>
+  </component>
+</project>
