@@ -4,3 +4,9 @@ project(Math C)
 set(CMAKE_C_STANDARD 17)
 
 add_executable(Math main.c)
+
+add_subdirectory(libs/natural)
+target_link_libraries(Math natural)
+
+enable_testing()
+add_subdirectory(ctest)
