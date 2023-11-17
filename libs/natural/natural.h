@@ -22,6 +22,7 @@
 #define NUMBER_N_TYPE_LENGTH    size_t
 #define NUMBER_N_TYPE_DATA      uintmax_t
 
+
 typedef struct
 {
     NUMBER_N_TYPE_LENGTH length;
