@@ -83,7 +83,7 @@ char* number_N_str_hex(number_N_p n,char** target,NULLABLE size_t* length,uint8_
 {
     if(target == NULL)
         return NULL;
-    size_t i,j,bytes;
+    size_t i,j;
     uint8_t byte;
     if(zero_skip)
     {
@@ -92,13 +92,12 @@ char* number_N_str_hex(number_N_p n,char** target,NULLABLE size_t* length,uint8_
             if(number_N_get_byte(n,i - 1) != 0)
                 break;
         }
-        bytes = i;
     }
     else
     {
-        i = bytes = number_N_size_bytes(n);
+        i = number_N_size_bytes(n);
     }
-    j = sizeof(char) * ((bytes << 1) + 1);
+    j = sizeof(char) * ((i << 1) + 1);
     if(j > *length)
         *target = (char*)realloc(*target,j);
     if(length != NULL)
@@ -261,8 +260,7 @@ number_N_p number_N_add_64(number_N_p target,uint64_t add)
 number_N_p number_N_sub(number_N_p target,number_N_p sub)
 {
     size_t i;
-    uint64_t temp = 0;
-    uint8_t value;
+    NUMBER_N_TYPE_DATA value,temp = 0;
     for(i = 0; i < target->length; i++)
     {
         value = (i < sub->length ? sub->data[i] : 0) + temp;
@@ -275,62 +273,68 @@ number_N_p number_N_sub(number_N_p target,number_N_p sub)
     return target;
 }
 
-/*
 number_N_p number_N_sub_64(number_N_p target,uint64_t sub)
 {
     size_t i;
-    uint8_t value;
-    uint16_t temp = 0;
-    for(i = 0; i < target->bytes; i++)
+    uint8_t value,temp = 0;
+    for(i = 0; i < number_N_size_bytes(target); i++)
     {
         value = NUMBER_N_HWORD_64(sub,i) + temp;
-        if(target->data[i] < value)
-            temp = ((value - target->data[i]) >> 4) + 1;
+        if(number_N_get_byte(target,i) < value)
+            temp = ((value - number_N_get_byte(target,i)) >> 4) + 1;
         else
             temp = 0;
-        target->data[i] -= value;
+        number_N_get_byte(target,i) -= value;
     }
     return target;
 }
-*/
 
-/*
 number_N_p number_N_and(number_N_p target,number_N_p and)
 {
     size_t i,min;
-    min = and->bytes < target->bytes ? and->bytes : target->bytes;
+    min = and->length < target->length ? and->length : target->length;
     for(i = 0; i < min; i++)
-        target->data[i] = target->data[i] & and->data[i];
+        target->data[i] &= and->data[i];
+    if(target->length > min)
+        memset(target->data + min,0,number_N_length_bytes(target->length - min));
     return target;
 }
 
 number_N_p number_N_and_64(number_N_p target,uint64_t and)
 {
     size_t i,min;
-    min = sizeof(and) < target->bytes ? sizeof(and) : target->bytes;
-    for(i = 0; i < min; i++)
-        target->data[i] = target->data[i] & NUMBER_N_HWORD_64(and,i);
+    min = sizeof(and) < number_N_size_bytes(target) ? sizeof(and) : number_N_size_bytes(target);
+    if(min == sizeof(and))
+        ((uint64_t*)target->data)[0] &= and;
+    else
+    {
+        for(i = 0; i < min; i++)
+            number_N_get_byte(target,i) &= NUMBER_N_HWORD_64(and,i);
+    }
+    if(number_N_size_bytes(target) > min)
+        memset(((uint8_t*)target->data) + min,0,number_N_length_bytes(target->length) - min);
     return target;
 }
 
 number_N_p number_N_or(number_N_p target,number_N_p or)
 {
     size_t i,min;
-    min = or->bytes < target->bytes ? or->bytes : target->bytes;
+    min = or->length < target->length ? or->length : target->length;
     for(i = 0; i < min; i++)
-        target->data[i] = target->data[i] | or->data[i];
+        target->data[i] |= or->data[i];
     return target;
 }
 
 number_N_p number_N_or_64(number_N_p target,uint64_t or)
 {
     size_t i,min;
-    min = sizeof(or) < target->bytes ? sizeof(or) : target->bytes;
+    min = sizeof(or) < number_N_size_bytes(target) ? sizeof(or) : number_N_size_bytes(target);
     for(i = 0; i < min; i++)
-        target->data[i] = target->data[i] | NUMBER_N_HWORD_64(or,i);
+        number_N_get_byte(target,i) |= NUMBER_N_HWORD_64(or,i);
     return target;
 }
 
+/*
 number_N_p number_N_mul(number_N_p target,number_N_p mul)
 {
     number_N_p i = number_N_dup(mul);
