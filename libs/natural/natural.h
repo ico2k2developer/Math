@@ -20,7 +20,7 @@
 #define NUMBER_N_DWORD_64(n,i)  ((uint32_t)(((n) & (UINT32_MAX << ((i * sizeof(uint32_t)) << 3))) >> ((i * sizeof(uint32_t)) << 3)))
 
 #define NUMBER_N_TYPE_LENGTH    size_t
-#define NUMBER_N_TYPE_DATA      uint16_t
+#define NUMBER_N_TYPE_DATA      uintmax_t
 
 typedef struct
 {
@@ -47,7 +47,7 @@ int8_t number_N_comp_64(number_N_p source,uint64_t comp);
 number_N_p number_N_add(number_N_p target,number_N_p add);
 number_N_p number_N_add_64(number_N_p target,uint64_t add);
 number_N_p number_N_sub(number_N_p target,number_N_p sub);
-//number_N_p number_N_sub_64(number_N_p target,uint64_t sub);
+number_N_p number_N_sub_64(number_N_p target,uint64_t sub);
 number_N_p number_N_and(number_N_p target,number_N_p and);
 number_N_p number_N_and_64(number_N_p target,uint64_t and);
 number_N_p number_N_or(number_N_p target,number_N_p or);
